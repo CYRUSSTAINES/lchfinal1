@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Chapter Hub – Chennai's #1 Networking & Social Community</title>
+<meta name="description" content="Local Chapter Hub – Chennai's best networking and social platform. Meet new people, join offline meetups, networking events, and unforgettable experiences. Join our community today!">
+<meta name="keywords" content="Chennai networking events, meet new people Chennai, social meetup Chennai, networking community Chennai, Chennai social events, Local Chapter Hub">
+<meta property="og:title" content="Local Chapter Hub – Chennai Networking Community">
+<meta property="og:description" content="Where strangers become friends through offline meetups, networking, and real-life experiences in Chennai.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Local Chapter Hub",
+  "description": "Chennai's best networking and social platform helping strangers become friends through offline meetups, networking events, fun activities, and real-life experiences.",
+  "url": "https://localchapterhub.in",
+  "foundingDate": "2026",
+  "areaServed": "Chennai, Tamil Nadu, India",
+  "sameAs": [
+    "https://instagram.com/localchapterhub",
+    "https://www.whatsapp.com/channel/0029VbBcvM80AgWHa66BcW2v"
+  ]
+}
+</script>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #0E5F7A;
+    --teal-dark: #0a4a5e;
+    --orange: #F28C28;
+    --orange-dark: #d97a1a;
+    --green: #4CAF50;
+    --green-dark: #3d9140;
+    --pink: #E91E63;
+    --white: #FFFFFF;
+    --light: #F5F5F5;
+    --text: #1a1a2e;
+    --text-muted: #555;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; cursor: none; }
+  @media (hover: none) { body { cursor: auto; } }
+
+  /* CUSTOM CURSOR */
+  #cursor-outer { position: fixed; width: 40px; height: 40px; border: 2px solid var(--teal); border-radius: 50%; pointer-events: none; z-index: 99999; transition: transform 0.15s ease, border-color 0.2s; top: 0; left: 0; will-change: transform; }
+  #cursor-inner { position: fixed; width: 8px; height: 8px; background: var(--orange); border-radius: 50%; pointer-events: none; z-index: 99999; top: 0; left: 0; will-change: transform; }
+  @media (hover: none) { #cursor-outer, #cursor-inner { display: none; } }
+
+  /* LOADING SCREEN */
+  #loader { position: fixed; inset: 0; background: var(--teal); z-index: 99998; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 20px; transition: opacity 0.6s ease, visibility 0.6s ease; }
+  #loader.hidden { opacity: 0; visibility: hidden; }
+  #loader img { width: 90px; height: 90px; border-radius: 50%; animation: loaderSpin 1s ease-in-out; }
+  #loader-bar { width: 200px; height: 3px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
+  #loader-fill { height: 100%; background: var(--orange); border-radius: 3px; animation: loadFill 1.4s ease forwards; }
+  @keyframes loaderSpin { from { transform: scale(0.3) rotate(-10deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
+  @keyframes loadFill { from { width: 0; } to { width: 100%; } }
+
+  /* NAVBAR */
+  #navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--teal); padding: 18px 5%; display: flex; align-items: center; justify-content: space-between; transition: padding 0.3s ease, box-shadow 0.3s ease; }
+  #navbar.scrolled { padding: 10px 5%; box-shadow: 0 4px 30px rgba(14,95,122,0.35); }
+  #navbar .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  #navbar .logo img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; transition: transform 0.3s ease; animation: logoFloat 3s ease-in-out infinite; }
+  #navbar.scrolled .logo img { width: 38px; height: 38px; }
+  #navbar .logo-text { color: white; font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
+  #navbar .logo-text span { display: block; font-size: 0.7rem; font-weight: 400; opacity: 0.8; letter-spacing: 0.5px; }
+  #navbar nav { display: flex; gap: 28px; align-items: center; }
+  #navbar nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; position: relative; }
+  #navbar nav a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s ease; }
+  #navbar nav a:hover { color: white; }
+  #navbar nav a:hover::after { width: 100%; }
+  #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; background: none; border: none; }
+  #hamburger span { width: 25px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s ease; }
+  #mobile-menu { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--teal); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+  #mobile-menu.open { display: flex; }
+  #mobile-menu a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 600; }
+  #mobile-menu .close-btn { position: absolute; top: 20px; right: 24px; color: white; font-size: 2rem; cursor: pointer; background: none; border: none; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 120px 5% 80px; position: relative; overflow: hidden; background: linear-gradient(135deg, #f0fafe 0%, #ffffff 50%, #fff5ee 100%); }
+  .hero-bg-shapes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .shape { position: absolute; border-radius: 50%; opacity: 0.08; animation: shapeFloat 8s ease-in-out infinite; }
+  .shape-1 { width: 400px; height: 400px; background: var(--teal); top: -100px; left: -100px; animation-delay: 0s; }
+  .shape-2 { width: 300px; height: 300px; background: var(--orange); top: 50%; right: -80px; animation-delay: 2s; }
+  .shape-3 { width: 200px; height: 200px; background: var(--pink); bottom: -50px; left: 20%; animation-delay: 4s; }
+  .shape-4 { width: 150px; height: 150px; background: var(--green); top: 30%; left: 10%; animation-delay: 1s; }
+  .shape-5 { width: 100px; height: 100px; background: var(--teal); bottom: 20%; right: 15%; animation-delay: 3s; }
+  @keyframes shapeFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+
+  /* PARTICLES */
+  #particles-container { position: absolute; inset: 0; pointer-events: none; }
+  .particle { position: absolute; border-radius: 50%; opacity: 0.4; animation: particleFloat linear infinite; }
+
+  .hero-content { position: relative; z-index: 2; max-width: 760px; animation: heroFadeIn 1s ease forwards; }
+  @keyframes heroFadeIn { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-badge { display: inline-block; background: linear-gradient(135deg, var(--teal), #1a7a99); color: white; padding: 6px 18px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+  .hero-logo { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 28px; animation: logoFloat 3s ease-in-out infinite, scaleIn 0.8s ease; box-shadow: 0 20px 60px rgba(14,95,122,0.2); }
+  @keyframes logoFloat { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+  @keyframes scaleIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .hero-title { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.15; color: var(--teal); margin-bottom: 20px; letter-spacing: -1px; }
+  .hero-title .accent { color: var(--orange); }
+  .hero-subtitle { font-size: clamp(1rem, 2.5vw, 1.2rem); color: var(--text-muted); max-width: 540px; margin: 0 auto 40px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--orange); color: white; padding: 16px 36px; border-radius: 50px; border: none; font-size: 1rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 8px 30px rgba(242,140,40,0.35); }
+  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(242,140,40,0.5); }
+  .btn-primary:active { transform: translateY(0) scale(0.97); }
+  .btn-secondary { background: transparent; color: var(--teal); padding: 15px 36px; border-radius: 50px; border: 2px solid var(--teal); font-size: 1rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
+  .btn-secondary:hover { background: var(--teal); color: white; transform: translateY(-3px); box-shadow: 0 8px 30px rgba(14,95,122,0.25); }
+  .hero-scroll { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--teal); opacity: 0.6; font-size: 0.75rem; animation: scrollBounce 2s ease-in-out infinite; }
+  .hero-scroll::after { content: ''; width: 1px; height: 40px; background: var(--teal); display: block; }
+  @keyframes scrollBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* SECTION BASE */
+  section { padding: 90px 5%; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-eyebrow { display: inline-block; color: var(--orange); font-weight: 700; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: var(--teal); line-height: 1.2; margin-bottom: 16px; }
+  .section-subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; line-height: 1.7; }
+
+  /* REVEAL ANIMATION */
+  .reveal { opacity: 0; transform: translateY(50px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* EVENTS SECTION */
+  #events { background: var(--light); }
+  .events-embed-container { max-width: 1000px; margin: 0 auto; background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); border-radius: 24px; padding: 10px; box-shadow: 0 20px 80px rgba(14,95,122,0.12); border: 1px solid rgba(14,95,122,0.1); position: relative; animation: glowPulse 3s ease-in-out infinite; }
+  @keyframes glowPulse { 0%, 100% { box-shadow: 0 20px 80px rgba(14,95,122,0.12), 0 0 0 0 rgba(14,95,122,0.0); } 50% { box-shadow: 0 20px 80px rgba(14,95,122,0.18), 0 0 30px 5px rgba(14,95,122,0.06); } }
+  .events-fallback { display: none; text-align: center; padding: 40px 20px; }
+  .events-fallback.show { display: block; }
+
+  /* STATS */
+  #stats { background: white; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+  .stat-card { background: white; border-radius: 20px; padding: 36px 28px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.07); border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+  .stat-card:nth-child(1)::before { background: var(--teal); }
+  .stat-card:nth-child(2)::before { background: var(--orange); }
+  .stat-card:nth-child(3)::before { background: var(--green); }
+  .stat-card:nth-child(4)::before { background: var(--pink); }
+  .stat-card:hover { transform: translateY(-8px) rotateX(3deg); box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+  .stat-number { font-size: 2.8rem; font-weight: 900; line-height: 1; margin-bottom: 8px; }
+  .stat-card:nth-child(1) .stat-number { color: var(--teal); }
+  .stat-card:nth-child(2) .stat-number { color: var(--orange); }
+  .stat-card:nth-child(3) .stat-number { color: var(--green); }
+  .stat-card:nth-child(4) .stat-number { color: var(--pink); }
+  .stat-label { color: var(--text-muted); font-size: 0.95rem; font-weight: 500; }
+
+  /* COMMUNITY */
+  #community { background: linear-gradient(135deg, #f0fafe, #fff5ee); text-align: center; }
+  .community-inner { max-width: 600px; margin: 0 auto; }
+  .community-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; animation: communityFloat 3s ease-in-out infinite; }
+  @keyframes communityFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .btn-whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 18px 44px; border-radius: 50px; border: none; font-size: 1.05rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 8px 30px rgba(37,211,102,0.35); animation: whatsappPulse 2.5s ease-in-out infinite; }
+  @keyframes whatsappPulse { 0%,100%{box-shadow:0 8px 30px rgba(37,211,102,0.35)} 50%{box-shadow:0 8px 50px rgba(37,211,102,0.55)} }
+  .btn-whatsapp:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 16px 50px rgba(37,211,102,0.5); }
+
+  /* INSTAGRAM */
+  #instagram { background: var(--light); text-align: center; }
+  .btn-instagram { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; padding: 18px 44px; border-radius: 50px; border: none; font-size: 1.05rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease; box-shadow: 0 8px 30px rgba(220,39,67,0.3); animation: igPulse 2.5s ease-in-out infinite; }
+  @keyframes igPulse { 0%,100%{box-shadow:0 8px 30px rgba(220,39,67,0.3)} 50%{box-shadow:0 8px 50px rgba(220,39,67,0.5)} }
+  .btn-instagram:hover { transform: translateY(-4px) scale(1.03); }
+
+  /* ABOUT */
+  #about { background: white; }
+  .about-card { max-width: 720px; margin: 0 auto; background: linear-gradient(135deg, #f0fafe, #fff); border-radius: 24px; padding: 56px 48px; box-shadow: 0 12px 60px rgba(14,95,122,0.1); border: 1px solid rgba(14,95,122,0.08); text-align: center; position: relative; overflow: hidden; }
+  .about-card::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(14,95,122,0.03) 0%, transparent 60%); }
+  .about-card p { font-size: 1.1rem; line-height: 1.85; color: var(--text-muted); position: relative; }
+  .about-card .about-year { display: inline-block; background: var(--teal); color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 20px; }
+
+  /* CONTACT */
+  #contact { background: var(--light); text-align: center; }
+  .contact-card { display: inline-flex; align-items: center; gap: 16px; background: white; padding: 24px 36px; border-radius: 20px; box-shadow: 0 8px 40px rgba(0,0,0,0.08); margin-top: 20px; }
+  .contact-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .contact-info { text-align: left; }
+  .contact-info h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .contact-info a { color: var(--green); font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+  .contact-info a:hover { color: var(--green-dark); }
+
+  /* FLOATING WA BUTTON */
+  #float-wa { position: fixed; bottom: 28px; right: 28px; z-index: 900; width: 60px; height: 60px; background: linear-gradient(135deg, #25D366, #128C7E); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 25px rgba(37,211,102,0.45); text-decoration: none; transition: transform 0.3s ease; animation: waBounce 2s ease-in-out infinite; }
+  @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+  #float-wa:hover { transform: scale(1.1) translateY(-4px); }
+  #float-wa svg { width: 30px; height: 30px; fill: white; }
+
+  /* FOOTER */
+  footer { background: var(--teal); color: rgba(255,255,255,0.85); padding: 48px 5% 28px; }
+  .footer-inner { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .footer-logo { display: flex; align-items: center; gap: 14px; }
+  .footer-logo img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; }
+  .footer-logo-text { font-size: 1.2rem; font-weight: 700; color: white; }
+  .footer-logo-text span { display: block; font-size: 0.75rem; font-weight: 400; opacity: 0.7; }
+  .footer-icons { display: flex; gap: 20px; }
+  .footer-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.3s ease; }
+  .footer-icon:hover { background: var(--orange); transform: translateY(-3px); }
+  .footer-icon svg { width: 20px; height: 20px; fill: white; }
+  .footer-copyright { font-size: 0.82rem; opacity: 0.6; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; width: 100%; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    #navbar nav { display: none; }
+    #hamburger { display: flex; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .about-card { padding: 36px 24px; }
+    #float-wa { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+    section { padding: 70px 6%; }
+    .hero-btns { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-secondary { width: 100%; max-width: 280px; justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .contact-card { flex-direction: column; text-align: center; }
+    .contact-info { text-align: center; }
+  }
+
+  @keyframes particleFloat {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+  }
+
+  /* 3D TILT */
+  .tilt-card { transform-style: preserve-3d; perspective: 800px; }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor-outer"></div>
+<div id="cursor-inner"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <img src="LOGO_PLACEHOLDER" alt="Local Chapter Hub" />
+  <div id="loader-bar"><div id="loader-fill"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#hero" class="logo">
+    <img src="LOGO_PLACEHOLDER" alt="Local Chapter Hub logo" />
+    <div class="logo-text">Local Chapter Hub <span>Chennai's Community Platform</span></div>
+  </a>
+  <nav>
+    <a href="#events">Events</a>
+    <a href="#community">Community</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <button class="close-btn" id="close-menu" aria-label="Close menu">✕</button>
+  <a href="#events" onclick="closeMobileMenu()">Events</a>
+  <a href="#community" onclick="closeMobileMenu()">Community</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+  </div>
+  <div id="particles-container"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🌏 Chennai's #1 Networking Platform</div>
+    <img src="LOGO_PLACEHOLDER" alt="Local Chapter Hub" class="hero-logo" />
+    <h1 class="hero-title">Meet New People.<br><span class="accent">Build Real Connections.</span></h1>
+    <p class="hero-subtitle">A place where strangers connect through networking, meetups, fun activities, and unforgettable experiences.</p>
+    <div class="hero-btns">
+      <a href="#events" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Explore Events
+      </a>
+      <a href="#community" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Join Community
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- EVENTS SECTION -->
+<section id="events">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Live Experiences</div>
+    <h2 class="section-title">Upcoming Events</h2>
+    <p class="section-subtitle">Book our latest experiences directly.</p>
+  </div>
+  <div class="events-embed-container reveal">
+    <section id="events-section">
+      <div class="ae-embed-org-plugin"
+        data-button-text=""
+        data-type="org"
+        data-title="false"
+        data-id="27659115"
+        data-height="600"
+        data-width="100%"
+        data-transparency="true"
+        data-header="0"
+        data-border="0"
+        data-layout="center"
+        style="width:100%">
+      </div>
+      <script async src="https://allevents.in/scripts/public/ae-plugin-embed-lib.js"></script>
+    </section>
+  </div>
+</section>
+
+<!-- STATS SECTION -->
+<section id="stats">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">By the Numbers</div>
+    <h2 class="section-title">Our Growing Community</h2>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card tilt-card reveal">
+      <div class="stat-number" data-target="500" data-suffix="+">0</div>
+      <div class="stat-label">Members Strong</div>
+    </div>
+    <div class="stat-card tilt-card reveal" style="transition-delay:0.1s">
+      <div class="stat-number" data-target="50" data-suffix="+">0</div>
+      <div class="stat-label">Events Done</div>
+    </div>
+    <div class="stat-card tilt-card reveal" style="transition-delay:0.2s">
+      <div class="stat-number" data-text="Chennai">2</div>
+      <div class="stat-label">Growing Across Chennai</div>
+    </div>
+    <div class="stat-card tilt-card reveal" style="transition-delay:0.3s">
+      <div class="stat-number" data-target="99" data-suffix=".9%">0</div>
+      <div class="stat-label">Positive Experience</div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY SECTION -->
+<section id="community">
+  <div class="community-inner reveal">
+    <div class="section-eyebrow">Stay Connected</div>
+    <h2 class="section-title">Join Our Community</h2>
+    <p class="section-subtitle" style="margin-bottom:40px;">Be part of Chennai's most vibrant social and networking community. Real people. Real connections. Real fun.</p>
+    <div class="community-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </div>
+    <a href="https://www.whatsapp.com/channel/0029VbBcvM80AgWHa66BcW2v" target="_blank" rel="noopener" class="btn-whatsapp">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Join WhatsApp Community
+    </a>
+  </div>
+</section>
+
+<!-- INSTAGRAM SECTION -->
+<section id="instagram">
+  <div class="reveal" style="text-align:center">
+    <div class="section-eyebrow">Social Media</div>
+    <h2 class="section-title">Connect With Us</h2>
+    <p class="section-subtitle" style="margin-bottom:40px;">Follow our journey and stay updated on all upcoming events and experiences.</p>
+    <a href="https://instagram.com/localchapterhub" target="_blank" rel="noopener" class="btn-instagram">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      Follow Local Chapter Hub On Instagram
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Our Story</div>
+    <h2 class="section-title">About Local Chapter Hub</h2>
+  </div>
+  <div class="about-card reveal">
+    <div class="about-year">Est. 2026 · Chennai, Tamil Nadu</div>
+    <p>Local Chapter Hub started in 2026 with one mission — helping strangers become friends through meaningful offline connections, networking meetups, fun activities, and unforgettable experiences. We believe the best relationships are built face to face, and we create the spaces where that magic happens.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title">Need Help? Contact Us</h2>
+    <p class="section-subtitle">We're here for you — reach out anytime on WhatsApp.</p>
+  </div>
+  <div style="text-align:center" class="reveal">
+    <a href="https://wa.me/918925661980" target="_blank" rel="noopener" class="contact-card" style="text-decoration:none;display:inline-flex;">
+      <div class="contact-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+      <div class="contact-info">
+        <h3>WhatsApp Support</h3>
+        <a href="https://wa.me/918925661980" target="_blank" rel="noopener">+91 89256 61980</a>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="LOGO_PLACEHOLDER" alt="Local Chapter Hub" />
+      <div class="footer-logo-text">Local Chapter Hub <span>Since 2026 · Chennai</span></div>
+    </div>
+    <div class="footer-icons">
+      <a href="https://instagram.com/localchapterhub" target="_blank" rel="noopener" class="footer-icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/918925661980" target="_blank" rel="noopener" class="footer-icon" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </a>
+    </div>
+    <div class="footer-copyright">© 2026 Local Chapter Hub · Chennai, Tamil Nadu · Built with ❤️ for the Community</div>
+  </div>
+</footer>
+
+<!-- FLOATING WA BUTTON -->
+<a id="float-wa" href="https://wa.me/918925661980" target="_blank" rel="noopener" aria-label="WhatsApp Support">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const LOGO_B64 = "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";
+const logoSrc = "data:image/jpeg;base64," + LOGO_B64;
+
+// Inject logo into all img[src="LOGO_PLACEHOLDER"]
+document.querySelectorAll('img[src="LOGO_PLACEHOLDER"]').forEach(img => {
+  img.src = logoSrc;
+});
+
+// LOADER
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 1600);
+});
+
+// CUSTOM CURSOR (desktop only)
+const isMobile = window.matchMedia('(hover: none)').matches;
+if (!isMobile) {
+  const cursorOuter = document.getElementById('cursor-outer');
+  const cursorInner = document.getElementById('cursor-inner');
+  let mouseX = 0, mouseY = 0, outerX = 0, outerY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursorInner.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+  });
+  const lerp = (a, b, n) => (1 - n) * a + n * b;
+  function animateCursor() {
+    outerX = lerp(outerX, mouseX, 0.12);
+    outerY = lerp(outerY, mouseY, 0.12);
+    cursorOuter.style.transform = `translate(${outerX - 20}px, ${outerY - 20}px)`;
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .stat-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursorOuter.style.transform += ' scale(1.8)';
+      cursorOuter.style.borderColor = '#F28C28';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursorOuter.style.borderColor = '#0E5F7A';
+    });
+  });
+}
+
+// NAVBAR SCROLL SHRINK
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// HAMBURGER MENU
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobile-menu').classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('close-menu').addEventListener('click', () => closeMobileMenu());
+function closeMobileMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// PARTICLES
+const container = document.getElementById('particles-container');
+const colors = ['#0E5F7A', '#F28C28', '#4CAF50', '#E91E63'];
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  const size = Math.random() * 8 + 4;
+  p.className = 'particle';
+  p.style.cssText = `
+    width:${size}px;height:${size}px;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    animation-duration:${Math.random()*10+8}s;
+    animation-delay:${Math.random()*8}s;
+  `;
+  container.appendChild(p);
+}
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(el => revealObserver.observe(el));
+
+// COUNTER ANIMATION
+const counters = document.querySelectorAll('.stat-number[data-target]');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !entry.target.dataset.counted) {
+      entry.target.dataset.counted = true;
+      const target = parseInt(entry.target.dataset.target);
+      const suffix = entry.target.dataset.suffix || '';
+      let current = 0;
+      const step = target / 60;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        entry.target.textContent = Math.floor(current) + suffix;
+      }, 25);
+    }
+  });
+}, { threshold: 0.3 });
+counters.forEach(el => counterObserver.observe(el));
+
+// 3D TILT on stat cards
+if (!isMobile) {
+  document.querySelectorAll('.tilt-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `translateY(-8px) rotateX(${-y*12}deg) rotateY(${x*12}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+// MOUSE PARALLAX on hero shapes
+if (!isMobile) {
+  const shapes = document.querySelectorAll('.shape');
+  document.addEventListener('mousemove', e => {
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
+    shapes.forEach((s, i) => {
+      const depth = (i + 1) * 8;
+      s.style.transform = `translateY(${dy * depth}px) translateX(${dx * depth}px)`;
+    });
+  });
+}
+
+// EVENTS FALLBACK — show button if embed doesn't load after 4s
+setTimeout(() => {
+  const embed = document.querySelector('.ae-embed-org-plugin');
+  if (embed && embed.children.length === 0) {
+    document.getElementById('events-fallback').classList.add('show');
+  }
+}, 4000);
+</script>
+</body>
+</html>
